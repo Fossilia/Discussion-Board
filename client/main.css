@@ -1,0 +1,14 @@
+body {
+  padding: 10px;
+  font-family: sans-serif;
+}
+
+.scroll {
+  align-items: center;
+  height:500px;
+  overflow-y: scroll;
+}
+
+.scroll::-webkit-scrollbar {
+    display: none;
+}
