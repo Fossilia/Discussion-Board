@@ -1,7 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import {Form, Button, Container} from 'react-bootstrap';
 
-export const LoginForm = () => {
+export default LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -12,28 +14,40 @@ export const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={submit} className="login-form">
-      <label htmlFor="username">Username</label>
+    <Form onSubmit={submit} className="login-form" style={{padding: "1rem"}}>
+        <div className="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            </div>
 
-      <input
-        type="text"
-        placeholder="Username"
-        name="username"
-        required
-        onChange={e => setUsername(e.target.value)}
-      />
+            <input
+            type="text"
+            class="form-control"
+            placeholder="Email"
+            name="username"
+            required
+            onChange={(e) => setUsername(e.target.value)}
+            />
+        </div>
 
-      <label htmlFor="password">Password</label>
+        <div className="input-group">
+        <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Password</span>
+            </div>
 
-      <input
-        type="password"
-        placeholder="Password"
-        name="password"
-        required
-        onChange={e => setPassword(e.target.value)}
-      />
+            <input
+            type="password"
+            class="form-control"
+            placeholder="Password"
+            name="password"
+            required
+            onChange={(e) => setPassword(e.target.value)}
+            />
+        </div>
 
-      <button type="submit">Log In</button>
-    </form>
+        <div style={{padding: "1rem"}}>
+            <Button type="submit">Log In</Button>
+        </div>
+    </Form>
   );
 };
