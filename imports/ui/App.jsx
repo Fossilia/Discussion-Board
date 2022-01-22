@@ -2,11 +2,14 @@ import React, { useState, useRef, Fragment } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { TextBox } from './TextBox.jsx';
 import Feed from './Feed.jsx';
+import Home from './Home.jsx';
 import LoginForm from './LoginForm.jsx';
-import {Form, Button, Container, Card} from 'react-bootstrap';
+import {Form, Button, Container, Card, Navbar, Nav, NavDropdown} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useTracker } from 'meteor/react-meteor-data';
 import { PostsCollection } from '/imports/api/PostsCollection';
+import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+
 
 <link
   rel="stylesheet"
@@ -21,22 +24,37 @@ export const App = () => {
 
   posts = useTracker(() => PostsCollection.find({}).fetch())
   const user = useTracker(() => Meteor.user());
+  const logout = () => Meteor.logout();
 
   return (
-    <>
-      {user ? (
-          <Fragment>
-            <TextBox setPosts={setPosts}/>
-            <Container>
-              <div className="scroll" style={{padding: "5rem"}}>
-                <Feed posts={posts}/>
-              </div>
-            </Container>
-          </Fragment>
-          ) : 
-      (
-        <LoginForm />
-      )}
-    </>
+    
+      <BrowserRouter>
+      <Navbar bg="light" expand="lg">
+        <Container>
+          <Navbar.Brand href="#home">Foss Board</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+          <Nav.Link href="#home" onClick={logout}>Log out</Nav.Link>
+          <Nav.Link href="#link">Switch theme</Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+      
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route exact path="/login">
+          <LoginForm />
+        </Route>
+        <Route exact path="/register">
+          <RegisterForm />
+        </Route>
+      </Switch>
+
+      </BrowserRouter>
+    
   );
 }
