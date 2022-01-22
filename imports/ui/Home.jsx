@@ -7,6 +7,7 @@ import {Form, Button, Container, Card, Navbar, Nav, NavDropdown} from 'react-boo
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useTracker } from 'meteor/react-meteor-data';
 import { PostsCollection } from '/imports/api/PostsCollection';
+import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 
 export default Home = () => {
 
@@ -18,11 +19,12 @@ export default Home = () => {
 
   return (
     <>
+      
       {user ? (
           <Fragment>
             <TextBox setPosts={setPosts}/>
             <Container>
-              <div className="scroll" style={{padding: "5rem"}}>
+              <div className="scroll" style={{padding: "1rem"}}>
                 <Feed posts={posts}/>
               </div>
             </Container>
