@@ -27,20 +27,41 @@ export const App = () => {
   const logout = () => Meteor.logout();
 
   return (
-    
+      <>
       <BrowserRouter>
-      <Navbar bg="light" expand="lg">
+
+      {user ? (
+          <Fragment>
+          <Navbar bg="light" expand="lg">
+          <Container>
+            <Navbar.Brand>Foss Board</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+            <Nav.Link onClick={logout}>Log out</Nav.Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+        </Fragment>
+          ) : 
+      (
+        <Fragment>
+        <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand href="#home">Foss Board</Navbar.Brand>
+          <Navbar.Brand>Foss Board</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-          <Nav.Link href="#home" onClick={logout}>Log out</Nav.Link>
-          <Nav.Link href="#link">Switch theme</Nav.Link>
+          <Nav.Link><Link to="/login">Log in</Link></Nav.Link>
+          <Nav.Link><Link to="/Register">Register</Link></Nav.Link>
+
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      </Fragment>
+      )}
       
       <Switch>
         <Route exact path="/">
@@ -55,6 +76,7 @@ export const App = () => {
       </Switch>
 
       </BrowserRouter>
+      </>
     
   );
 }

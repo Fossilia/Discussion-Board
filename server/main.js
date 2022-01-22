@@ -9,7 +9,7 @@ const SEED_PASSWORD = 'password';
 
 Meteor.startup(() => {
   // If the Links collection is empty, add some data.
-  if (!Accounts.findUserByUsername(SEED_EMAIL)) {
+  if (!Accounts.findUserByEmail(SEED_EMAIL)) {
     Accounts.createUser({
       email: SEED_EMAIL,
       password: SEED_PASSWORD,

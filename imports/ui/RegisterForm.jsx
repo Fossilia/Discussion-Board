@@ -2,14 +2,19 @@ import { Meteor } from 'meteor/meteor';
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Accounts } from 'meteor/accounts-base'
-import {Form, Button, Container} from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
-import ReactDOM from 'react-dom';
+import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+import {Form, Button, Container, Card, Navbar, Nav, NavDropdown} from 'react-bootstrap';
 
 export default RegisterForm = () => {
   const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  function gotoHome(){
+    console.log("worked");
+    <Redirect to="/"/>
+  }
 
   const submit = e => {
     e.preventDefault();
@@ -31,6 +36,7 @@ export default RegisterForm = () => {
         }
       })
       
+      gotoHome()
       //ReactDOM.render(<Redirect to="/"/>, document.getElementById('root'));
     }
     else{
@@ -41,6 +47,7 @@ export default RegisterForm = () => {
 
   return (
     <Container> 
+      
         <br/>
         <h1 align="center">Register</h1>
         <Form onSubmit={submit} className="login-form" style={{padding: "1rem"}}>
@@ -49,7 +56,7 @@ export default RegisterForm = () => {
         <div className="input-group mb-3">
             <input
             type="text"
-            class="form-control"
+            className="form-control"
             name="email"
             required
             onChange={(e) => setemail(e.target.value)}
@@ -61,7 +68,7 @@ export default RegisterForm = () => {
         <div className="input-group mb-3">
             <input
             type="password"
-            class="form-control"
+            className="form-control"
             name="password"
             required
             onChange={(e) => setPassword(e.target.value)}
@@ -73,7 +80,7 @@ export default RegisterForm = () => {
         <div className="input-group">
             <input
             type="password"
-            class="form-control"
+            className="form-control"
             name="password"
             required
             onChange={(e) => setConfirmPassword(e.target.value)}

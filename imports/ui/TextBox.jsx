@@ -21,6 +21,7 @@ export const TextBox = ({setPosts}) => {
       else{
         setPosts(prevPosts => {
           console.log("added post")
+          console.log(user.emails.address)
           return [...prevPosts, {id:postId, poster:user.email, postText:postText, likes: 0, dislikes:0}]
         })
 
@@ -42,9 +43,9 @@ export const TextBox = ({setPosts}) => {
     <Container>
     <div style={{padding: "1rem"}}>
         <div className="form-group">
-            <label htmlFor="postTextArea" style={{paddingBottom: "1rem"}}>
+            <h3 style={{paddingBottom: "1rem"}}>
               Logged in as: {user.email}
-            </label>
+            </h3>
             <textarea
             ref = {postRef}
             className="form-control"
