@@ -1,12 +1,9 @@
 import { Meteor } from 'meteor/meteor';
-import React, { useState, Component } from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {Form, Button, Container} from 'react-bootstrap';
-import RegisterForm from './RegisterForm.jsx';
-import App from './App.jsx';
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 
-export default LoginForm = () => {
+export default RegisterForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -19,7 +16,7 @@ export default LoginForm = () => {
   return (
     <Container> 
         <br/>
-        <h1 align="center">Log in</h1>
+        <h1 align="center">Register</h1>
         <Form onSubmit={submit} className="login-form" style={{padding: "1rem"}}>
         <div className="input-group mb-3">
             <div class="input-group-prepend">
@@ -51,27 +48,25 @@ export default LoginForm = () => {
             />
         </div>
 
-        <BrowserRouter>
-        <div style={{padding: "1rem"}}>
-            <Button type="submit">Log In</Button>
-            <BrowserRouter>
-            <br/><label>Don't have an account? <Link to="/register">Register here</Link></label>
-            </BrowserRouter>
+        <div className="input-group">
+        <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Confirm Password</span>
+            </div>
+
+            <input
+            type="password"
+            class="form-control"
+            placeholder="Password"
+            name="password"
+            required
+            onChange={(e) => setPassword(e.target.value)}
+            />
         </div>
 
-        <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route exact path="/login">
-          <LoginForm />
-        </Route>
-        <Route exact path="/register">
-          <RegisterForm />
-        </Route>
-      </Switch>
-      
-        </BrowserRouter>
+        <div style={{padding: "1rem"}}>
+            <Button type="submit" onClick={RegisterForm}>Register</Button>
+        </div>
+
     </Form>
     </Container>
   );
