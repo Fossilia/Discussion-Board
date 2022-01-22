@@ -1,16 +1,42 @@
 import { Meteor } from 'meteor/meteor';
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { Accounts } from 'meteor/accounts-base'
 import {Form, Button, Container} from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
+import ReactDOM from 'react-dom';
 
 export default RegisterForm = () => {
-  const [username, setUsername] = useState('');
+  const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const submit = e => {
     e.preventDefault();
+    
+    if(password == confirmPassword){
+      Accounts.createUser({
+        email: email,
+        password: password,
+        },
+         function(error){
+        if(error){
+          alert(error.reason);
+        }
+      })
 
-    Meteor.loginWithPassword(username, password);
+      Meteor.loginWithPassword(email, password, function(error){
+        if(error){
+          alert(error.reason);
+        }
+      })
+      
+      //ReactDOM.render(<Redirect to="/"/>, document.getElementById('root'));
+    }
+    else{
+      alert("Passwords must match")
+    }
+    ;
   };
 
   return (
@@ -18,53 +44,44 @@ export default RegisterForm = () => {
         <br/>
         <h1 align="center">Register</h1>
         <Form onSubmit={submit} className="login-form" style={{padding: "1rem"}}>
+        <label>Email</label>
+        <br/>
         <div className="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            </div>
-
             <input
             type="text"
             class="form-control"
-            placeholder="Email"
-            name="username"
+            name="email"
             required
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => setemail(e.target.value)}
             />
         </div>
 
-        <div className="input-group">
-        <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">Password</span>
-            </div>
-
+        <label>Password</label>
+          <br/>
+        <div className="input-group mb-3">
             <input
             type="password"
             class="form-control"
-            placeholder="Password"
             name="password"
             required
             onChange={(e) => setPassword(e.target.value)}
             />
         </div>
 
+        <label>Confirm Password</label>
+        <br/>
         <div className="input-group">
-        <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">Confirm Password</span>
-            </div>
-
             <input
             type="password"
             class="form-control"
-            placeholder="Password"
             name="password"
             required
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setConfirmPassword(e.target.value)}
             />
         </div>
 
-        <div style={{padding: "1rem"}}>
-            <Button type="submit" onClick={RegisterForm}>Register</Button>
+        <div style={{paddingTop: "1rem"}}>
+            <Button type="submit">Register</Button>
         </div>
 
     </Form>

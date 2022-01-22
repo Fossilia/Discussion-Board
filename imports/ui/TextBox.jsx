@@ -21,12 +21,12 @@ export const TextBox = ({setPosts}) => {
       else{
         setPosts(prevPosts => {
           console.log("added post")
-          return [...prevPosts, {id:postId, poster:user.username, postText:postText, likes: 0, dislikes:0}]
+          return [...prevPosts, {id:postId, poster:user.email, postText:postText, likes: 0, dislikes:0}]
         })
 
         PostsCollection.insert({
           id: postId,
-          poster:user.username,
+          poster:user.email,
           postText: postText.trim(),
           likes: 0,
           dislikes: 0,
@@ -42,8 +42,8 @@ export const TextBox = ({setPosts}) => {
     <Container>
     <div style={{padding: "1rem"}}>
         <div className="form-group">
-            <label htmlFor="postTextArea">
-              Logged in as: {user.username}
+            <label htmlFor="postTextArea" style={{paddingBottom: "1rem"}}>
+              Logged in as: {user.email}
             </label>
             <textarea
             ref = {postRef}

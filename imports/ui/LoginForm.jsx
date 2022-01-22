@@ -13,7 +13,11 @@ export default LoginForm = () => {
   const submit = e => {
     e.preventDefault();
 
-    Meteor.loginWithPassword(username, password);
+    Meteor.loginWithPassword(username, password, function(error){
+      if(error){
+        alert(error.reason);
+      }
+    });
   };
 
   return (
@@ -21,57 +25,35 @@ export default LoginForm = () => {
         <br/>
         <h1 align="center">Log in</h1>
         <Form onSubmit={submit} className="login-form" style={{padding: "1rem"}}>
+        <label>Email</label>
+        <br/>
         <div className="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            </div>
-
+            
             <input
             type="text"
             class="form-control"
-            placeholder="Email"
             name="username"
             required
             onChange={(e) => setUsername(e.target.value)}
             />
         </div>
-
+        <label>Password</label>
+        <br/>
         <div className="input-group">
-        <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">Password</span>
-            </div>
 
             <input
             type="password"
             class="form-control"
-            placeholder="Password"
             name="password"
             required
             onChange={(e) => setPassword(e.target.value)}
             />
         </div>
 
-        <BrowserRouter>
-        <div style={{padding: "1rem"}}>
+        <div style={{paddingTop: "1rem"}}>
             <Button type="submit">Log In</Button>
-            <BrowserRouter>
             <br/><label>Don't have an account? <Link to="/register">Register here</Link></label>
-            </BrowserRouter>
         </div>
-
-        <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route exact path="/login">
-          <LoginForm />
-        </Route>
-        <Route exact path="/register">
-          <RegisterForm />
-        </Route>
-      </Switch>
-      
-        </BrowserRouter>
     </Form>
     </Container>
   );
