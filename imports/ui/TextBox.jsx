@@ -11,6 +11,7 @@ export const TextBox = ({setPosts}) => {
 
   const postRef = useRef()
   const user = useTracker(() => Meteor.user());
+  //const currentUserEmail = Meteor.user() ? Meteor.user().emails[0].address : '' 
 
   function createPost(e){
       const postText = postRef.current.value
@@ -22,12 +23,12 @@ export const TextBox = ({setPosts}) => {
         setPosts(prevPosts => {
           console.log("added post")
           console.log(user.emails.address)
-          return [...prevPosts, {id:postId, poster:user.email, postText:postText, likes: 0, dislikes:0}]
+          return [...prevPosts, {id:postId, poster:user.emails[0].address, postText:postText, likes: 0, dislikes:0, createdAt: new Date()}]
         })
 
         PostsCollection.insert({
           id: postId,
-          poster:user.email,
+          poster:user.emails[0].address,
           postText: postText.trim(),
           likes: 0,
           dislikes: 0,
@@ -40,17 +41,18 @@ export const TextBox = ({setPosts}) => {
 
   return (
     <>
-    <Container>
+    <Container style={{width:800}}>
     <div style={{padding: "1rem"}}>
         <div className="form-group">
-            <h3 style={{paddingBottom: "1rem"}}>
-              Logged in as: {user.email}
-            </h3>
+            <h4 style={{paddingBottom: "1rem"}}>
+              Logged in as: {user.emails[0].address}
+            </h4>
             <textarea
             ref = {postRef}
             className="form-control"
             id="postTextArea"
             rows="5"
+            text-align="center"
             placeholder="what are you thinking about today?"
             />
         </div>
