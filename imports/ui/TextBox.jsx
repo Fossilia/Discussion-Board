@@ -11,7 +11,10 @@ export const TextBox = ({setPosts}) => {
 
   const postRef = useRef()
   const user = useTracker(() => Meteor.user());
-  //const currentUserEmail = Meteor.user() ? Meteor.user().emails[0].address : '' 
+  let email = ""
+  if(typeof(user.emails) != '0'){
+    email = user.emails[0].address
+  }
 
   function createPost(e){
       const postText = postRef.current.value
@@ -22,13 +25,12 @@ export const TextBox = ({setPosts}) => {
       else{
         setPosts(prevPosts => {
           console.log("added post")
-          console.log(user.emails.address)
-          return [...prevPosts, {id:postId, poster:user.emails[0].address, postText:postText, likes: 0, dislikes:0, createdAt: new Date()}]
+          return [...prevPosts, {id:postId, poster:email, postText:postText, likes: 0, dislikes:0, createdAt: new Date()}]
         })
 
         PostsCollection.insert({
           id: postId,
-          poster:user.emails[0].address,
+          poster:email,
           postText: postText.trim(),
           likes: 0,
           dislikes: 0,
@@ -45,7 +47,7 @@ export const TextBox = ({setPosts}) => {
     <div style={{padding: "1rem"}}>
         <div className="form-group">
             <h4 style={{paddingBottom: "1rem"}}>
-              Logged in as: {user.emails[0].address}
+              Logged in as: {email}
             </h4>
             <textarea
             ref = {postRef}
