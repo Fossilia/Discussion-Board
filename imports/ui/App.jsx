@@ -25,7 +25,7 @@ export const App = () => {
           <Fragment>
           <Navbar bg="light" expand="lg">
             <Container>
-              <Navbar.Brand>Foss Board</Navbar.Brand>
+              <Navbar.Brand>Discussion Board</Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
@@ -40,7 +40,7 @@ export const App = () => {
         <Fragment>
         <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand>Foss Board</Navbar.Brand>
+          <Navbar.Brand>Discussion Board</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
