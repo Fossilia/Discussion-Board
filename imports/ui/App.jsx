@@ -29,7 +29,7 @@ export const App = () => {
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
-              <Nav.Item onClick={logout}>Log out</Nav.Item>
+              <Nav.Link onClick={logout}>Log out</Nav.Link>
                 </Nav>
               </Navbar.Collapse>
             </Container>
