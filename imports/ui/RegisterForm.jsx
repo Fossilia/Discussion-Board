@@ -2,9 +2,8 @@ import { Meteor } from 'meteor/meteor';
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Accounts } from 'meteor/accounts-base'
-import { Redirect } from 'react-router-dom';
-import { BrowserRouter, Route, Switch, Link, useHistory} from 'react-router-dom';
-import {Form, Button, Container, Card, Navbar, Nav, NavDropdown} from 'react-bootstrap';
+import {useHistory} from 'react-router-dom';
+import {Form, Button, Container} from 'react-bootstrap';
 
 export default RegisterForm = () => {
   const [email, setemail] = useState('');

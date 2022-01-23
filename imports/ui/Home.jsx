@@ -1,13 +1,12 @@
-import React, { useState, useRef, Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { TextBox } from './TextBox.jsx';
 import Feed from './Feed.jsx';
 import LoginForm from './LoginForm.jsx';
-import {Form, Button, Container, Card, Navbar, Nav, NavDropdown} from 'react-bootstrap';
+import {Container} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useTracker } from 'meteor/react-meteor-data';
 import { PostsCollection } from '/imports/api/PostsCollection';
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 
 export default Home = () => {
 

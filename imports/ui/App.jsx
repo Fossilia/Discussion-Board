@@ -1,22 +1,13 @@
-import React, { useState, useRef, Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { TextBox } from './TextBox.jsx';
-import Feed from './Feed.jsx';
 import Home from './Home.jsx';
+import RegisterForm from './RegisterForm.jsx';
 import LoginForm from './LoginForm.jsx';
-import {Form, Button, Container, Card, Navbar, Nav, NavDropdown} from 'react-bootstrap';
+import {Container, Navbar, Nav} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useTracker } from 'meteor/react-meteor-data';
 import { PostsCollection } from '/imports/api/PostsCollection';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
-
-
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-  crossorigin="anonymous"
-/>
 
 export const App = () => {
 
@@ -38,7 +29,7 @@ export const App = () => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-            <Nav.Link onClick={logout}>Log out</Nav.Link>
+            <Nav.Item onClick={logout}>Log out</Nav.Item>
               </Nav>
             </Navbar.Collapse>
           </Container>
@@ -53,8 +44,8 @@ export const App = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-          <Nav.Link><Link to="/">Log in</Link></Nav.Link>
-          <Nav.Link><Link to="/Register">Register</Link></Nav.Link>
+          <Nav.Item><Link to="/">Log in</Link>&nbsp;&nbsp;</Nav.Item>
+          <Nav.Item><Link to="/Register">Register</Link></Nav.Item>
 
             </Nav>
           </Navbar.Collapse>

@@ -1,7 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, {useRef } from 'react';
 import {Form, Button, Container} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import App from './App.jsx'
 import { v4 as uuidv4 } from 'uuid';
 import { useTracker } from 'meteor/react-meteor-data';
 import { PostsCollection } from '/imports/api/PostsCollection';

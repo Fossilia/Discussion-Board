@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
-import {Form, Button, Container, Card} from 'react-bootstrap';
+import React from 'react';
 import Post from './Post.jsx';
-import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default Feed = ({ posts }) => {
   return (

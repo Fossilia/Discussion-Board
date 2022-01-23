@@ -1,10 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import React, { useState, Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import RegisterForm from './RegisterForm.jsx';
-import App from './App.jsx';
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
-import {Form, Button, Container, Card, Navbar, Nav, NavDropdown} from 'react-bootstrap';
+import {Link } from 'react-router-dom';
+import {Form, Button, Container} from 'react-bootstrap';
 
 export default LoginForm = () => {
   const [username, setUsername] = useState('');
