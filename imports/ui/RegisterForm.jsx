@@ -19,7 +19,7 @@ export default RegisterForm = () => {
   const submit = e => {
     e.preventDefault();
     
-    if(password == confirmPassword){
+    if(password == confirmPassword){ //check if confirm password field is correct
       Accounts.createUser({
         email: email,
         password: password,
@@ -30,14 +30,13 @@ export default RegisterForm = () => {
         }
       })
 
-      Meteor.loginWithPassword(email, password, function(error){
+      Meteor.loginWithPassword(email, password, function(error){ //log user in if they successfully registered
         if(error){
           alert(error.reason);
         }
       })
       
       gotoHome()
-      //ReactDOM.render(<Redirect to="/"/>, document.getElementById('root'));
     }
     else{
       alert("Passwords must match")

@@ -1,5 +1,5 @@
 import React, {useRef } from 'react';
-import {Form, Button, Container} from 'react-bootstrap';
+import {Button, Container} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { v4 as uuidv4 } from 'uuid';
 import { useTracker } from 'meteor/react-meteor-data';
@@ -8,26 +8,25 @@ import { Meteor } from 'meteor/meteor';
 
 export const TextBox = ({setPosts}) => {
 
-  const postRef = useRef()
-  const user = useTracker(() => Meteor.user());
+  const postRef = useRef() //get what the user types in thier post
+  const user = useTracker(() => Meteor.user()); //current user
   let email = ""
-  if(typeof(user.emails)!='undefined'){
+  if(typeof(user.emails)!='undefined'){ //makes sure email is not undefined
     email = user.emails[0].address
   }
 
   function createPost(e){
       const postText = postRef.current.value
-      const postId = uuidv4()
+      const postId = uuidv4() //generate random ID
       if(postText == ''){
         return
       }
       else{
-        setPosts(prevPosts => {
-          console.log("added post")
+        setPosts(prevPosts => {  //add a new post to the previous post list
           return [...prevPosts, {id:postId, poster:email, postText:postText, likes: 0, dislikes:0, createdAt: new Date()}]
         })
 
-        PostsCollection.insert({
+        PostsCollection.insert({ //insert post into MongDB 
           id: postId,
           poster:email,
           postText: postText.trim(),
@@ -36,7 +35,7 @@ export const TextBox = ({setPosts}) => {
           createdAt: new Date()
         });
 
-        postRef.current.value = null;
+        postRef.current.value = null; //clear post area
       }
   }
 
@@ -49,12 +48,12 @@ export const TextBox = ({setPosts}) => {
               Logged in as: <u>{email}</u>
             </h4>
             <textarea
-            ref = {postRef}
-            className="form-control"
-            id="postTextArea"
-            rows="5"
-            text-align="center"
-            placeholder="what are you thinking about today?"
+              ref = {postRef /*where the post text is recieved from */} 
+              className="form-control"
+              id="postTextArea"
+              rows="5"
+              text-align="center"
+              placeholder="what are you thinking about today?"
             />
         </div>
       <br/>

@@ -11,32 +11,32 @@ import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 
 export const App = () => {
 
-  let [posts, setPosts] = useState([])
+  let [posts, setPosts] = useState([]) 
 
-  posts = useTracker(() => PostsCollection.find({}).fetch())
-  const user = useTracker(() => Meteor.user());
+  posts = useTracker(() => PostsCollection.find({}).fetch()) //get list of posts
+  const user = useTracker(() => Meteor.user()); //get list of users
   const logout = () => Meteor.logout();
 
   return (
       <>
       <BrowserRouter>
 
-      {user ? (
+      {user ? ( //if the user is logged in, show user navbar
           <Fragment>
           <Navbar bg="light" expand="lg">
-          <Container>
-            <Navbar.Brand>Foss Board</Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-            <Nav.Item onClick={logout}>Log out</Nav.Item>
-              </Nav>
-            </Navbar.Collapse>
-          </Container>
+            <Container>
+              <Navbar.Brand>Foss Board</Navbar.Brand>
+              <Navbar.Toggle aria-controls="basic-navbar-nav" />
+              <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="me-auto">
+              <Nav.Item onClick={logout}>Log out</Nav.Item>
+                </Nav>
+              </Navbar.Collapse>
+            </Container>
         </Navbar>
         </Fragment>
           ) : 
-      (
+      ( //otherwise show visiter navbar
         <Fragment>
         <Navbar bg="light" expand="lg">
         <Container>
@@ -46,16 +46,15 @@ export const App = () => {
           <Nav className="me-auto">
           <Nav.Item><Link to="/">Log in</Link>&nbsp;&nbsp;</Nav.Item>
           <Nav.Item><Link to="/Register">Register</Link></Nav.Item>
-
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
       </Fragment>
       )}
-      
-      <Switch>
-        <Route exact path="/">
+      {/*Switched and Routes used to create different pages*/}
+      <Switch> 
+        <Route exact path="/"> 
           <Home />
         </Route>
         <Route exact path="/login">

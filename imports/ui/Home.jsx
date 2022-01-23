@@ -12,14 +12,13 @@ export default Home = () => {
 
   let [posts, setPosts] = useState([])
 
-  posts = useTracker(() => PostsCollection.find({}).fetch())
-  const user = useTracker(() => Meteor.user());
-  const logout = () => Meteor.logout();
+  posts = useTracker(() => PostsCollection.find({}).fetch()) //list of posts
+  const user = useTracker(() => Meteor.user()); //current user
 
   return (
     <>
       
-      {user ? (
+      {user ? ( //if a user is logged in, show the discussion board
           <Fragment>
             <TextBox setPosts={setPosts}/>
             <Container style={{width: 700}}>
@@ -29,7 +28,7 @@ export default Home = () => {
             </Container>
           </Fragment>
           ) : 
-      (
+      ( //otherwise redirect to login form
         <LoginForm />
       )}
     </>
