@@ -3,17 +3,18 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Accounts } from 'meteor/accounts-base'
 import { Redirect } from 'react-router-dom';
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Link, useHistory} from 'react-router-dom';
 import {Form, Button, Container, Card, Navbar, Nav, NavDropdown} from 'react-bootstrap';
 
 export default RegisterForm = () => {
   const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const history = useHistory();
 
   function gotoHome(){
     console.log("worked");
-    <Redirect to="/"/>
+    history.push("/");
   }
 
   const submit = e => {
@@ -46,7 +47,7 @@ export default RegisterForm = () => {
   };
 
   return (
-    <Container> 
+    <Container style={{width:700}}> 
       
         <br/>
         <h1 align="center">Register</h1>
