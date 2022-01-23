@@ -12,7 +12,7 @@ export const TextBox = ({setPosts}) => {
   const postRef = useRef()
   const user = useTracker(() => Meteor.user());
   let email = ""
-  if(typeof(user.emails) != '0'){
+  if(typeof(user.emails)!='undefined'){
     email = user.emails[0].address
   }
 
@@ -47,7 +47,7 @@ export const TextBox = ({setPosts}) => {
     <div style={{padding: "1rem"}}>
         <div className="form-group">
             <h4 style={{paddingBottom: "1rem"}}>
-              Logged in as: {email}
+              Logged in as: <u>{email}</u>
             </h4>
             <textarea
             ref = {postRef}
