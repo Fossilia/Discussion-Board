@@ -53,7 +53,7 @@ export const App = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-          <Nav.Link><Link to="/login">Log in</Link></Nav.Link>
+          <Nav.Link><Link to="/">Log in</Link></Nav.Link>
           <Nav.Link><Link to="/Register">Register</Link></Nav.Link>
 
             </Nav>

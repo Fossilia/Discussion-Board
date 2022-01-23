@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default Feed = ({ posts }) => {
   return (
-     posts.map(post => {
+     posts.reverse().map(post => {
       return <Post key={post.id} post={post} />
     })
   );

@@ -21,7 +21,7 @@ export default LoginForm = () => {
   };
 
   return (
-    <Container> 
+    <Container style={{width:700}}> 
      
 
         <br/>

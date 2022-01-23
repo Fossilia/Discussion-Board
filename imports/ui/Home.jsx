@@ -23,7 +23,7 @@ export default Home = () => {
       {user ? (
           <Fragment>
             <TextBox setPosts={setPosts}/>
-            <Container>
+            <Container style={{width: 700}}>
               <div className="scroll" style={{padding: "1rem"}}>
                 <Feed posts={posts}/>
               </div>
