@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card} from 'react-bootstrap';
+import {Card, Button} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default Post = ({ post }) => {
@@ -19,6 +19,14 @@ const months = ["Jan","Feb","Mar","April","May","June","July","Aug","Sep","Oct",
             <Card.Text style={{fontSize: 12}}>
               {months[month]} {day}, {date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}
             </Card.Text>
+            <Button>
+              Like 
+            </Button>
+            <label>{post.likes}</label>
+            <Button>
+              Dislike 
+            </Button>
+            <label>{post.dislikes}</label>
         </Card.Body>
       </Card>
       <br/>
