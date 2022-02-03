@@ -16,3 +16,10 @@ body {
 .reactText {
   margin: 5px;
 }
+
+.clickableImage
+{
+    cursor: pointer;
+    width:20;
+    height:20;
+}
