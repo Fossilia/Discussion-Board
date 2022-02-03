@@ -8,7 +8,7 @@ import { Meteor } from 'meteor/meteor';
 
 export const TextBox = ({setPosts}) => {
 
-  const postRef = useRef() //get what the user types in thier post
+  const postRef = useRef() //get what the user types in their post
   const user = useTracker(() => Meteor.user()); //current user
   let email = ""
   if(typeof(user.emails)!='undefined'){ //makes sure email is not undefined
@@ -23,7 +23,7 @@ export const TextBox = ({setPosts}) => {
       }
       else{
         setPosts(prevPosts => {  //add a new post to the previous post list
-          return [...prevPosts, {id:postId, poster:email, postText:postText, likes: 0, dislikes:0, createdAt: new Date()}]
+          return [...prevPosts, {id:postId, poster:email, postText:postText, likes: 0, dislikes:0, likedList: [], dislikedList: [], createdAt: new Date()}]
         })
 
         PostsCollection.insert({ //insert post into MongDB 
@@ -32,6 +32,8 @@ export const TextBox = ({setPosts}) => {
           postText: postText.trim(),
           likes: 0,
           dislikes: 0,
+          likedList: [],
+          dislikedList: [],
           createdAt: new Date()
         });
 

@@ -12,3 +12,7 @@ body {
 .scroll::-webkit-scrollbar {
     display: none;
 }
+
+.reactText {
+  margin: 5px;
+}
