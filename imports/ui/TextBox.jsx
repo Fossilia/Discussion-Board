@@ -52,7 +52,7 @@ export const TextBox = ({setPosts}) => {
   return (
     <>
     <Container style={{width:800}}>
-      <Form onSubmit={createPost} onKeyDown={submitOnEnter}>
+      <Form onSubmit={createPost}>
         <div style={{padding: "1rem"}}>
           <div className="form-group">
               <h4 style={{paddingBottom: "1rem"}}>

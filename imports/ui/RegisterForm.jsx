@@ -11,37 +11,72 @@ export default RegisterForm = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const history = useHistory();
 
+  //regex for : non-white-space char(s) -> @ non-white-space char(s) -> .com
+  const emailFormat = /\S+@\S+\.com+/;
+  //regex for : must include: digit, lower case, and upper case letter
+  const passwordFormat = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/; 
+
+  //goes to homepage
   function gotoHome(){
     console.log("worked");
     history.push("/");
   }
 
+  //check if password is valid
+  const passwordCheck = () => {
+    var alertMessage = "";
+  
+    if(!(password.length>7)){
+      alertMessage += "password does not have enough characters (need 8)!\n";
+    }
+  
+    if(!(passwordFormat.test(password))){
+        alertMessage += "Incorrect password format! Password must have a number, lower case and upper case character.\n";
+    }
+  
+    if(alertMessage.length>1){
+      alert(alertMessage);
+      return false;
+    }
+    return true;
+  }
+
   const submit = e => {
     e.preventDefault();
-    
-    if(password == confirmPassword){ //check if confirm password field is correct
-      Accounts.createUser({
-        email: email,
-        password: password,
-        },
-         function(error){
-        if(error){
-          alert(error.reason);
-        }
-      })
 
-      Meteor.loginWithPassword(email, password, function(error){ //log user in if they successfully registered
-        if(error){
-          alert(error.reason);
-        }
-      })
-      
-      gotoHome()
-    }
-    else{
+    //check for email format
+    if(!(emailFormat.test(email))){
+  		alert("Incorrect email format!");
+      return;
+	  } 
+  
+    if(password != confirmPassword){ //check if confirm password field is correct
       alert("Passwords must match")
+      return;
     }
-    ;
+
+    //check password format
+    if(!passwordCheck()){
+      return;
+    }
+
+    Accounts.createUser({
+      email: email,
+      password: password,
+      },
+        function(error){
+      if(error){
+        alert(error.reason);
+      }
+    })
+
+    Meteor.loginWithPassword(email, password, function(error){ //log user in if they successfully registered
+      if(error){
+        alert(error.reason);
+      }
+    })
+      
+    gotoHome()
   };
 
   return (
@@ -72,8 +107,8 @@ export default RegisterForm = () => {
             required
             onChange={(e) => setPassword(e.target.value)}
             />
+            <label><u>Password must have a number, lower case and upper case character</u></label>
         </div>
-
         <label>Confirm Password</label>
         <br/>
         <div className="input-group">
