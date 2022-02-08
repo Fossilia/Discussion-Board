@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {Card, Button} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { PostsCollection } from '/imports/api/PostsCollection';
+import { useTracker } from 'meteor/react-meteor-data';
 
 export default Post = ({ post }) => {
   date = post.createdAt 
@@ -13,22 +14,31 @@ export default Post = ({ post }) => {
   likeImagePath = "./like.png"
   dislikeImagePath = "./dislike.png"
 
-  const updateReactDB = () => {
-    PostsCollection.update(post.id, { $set: { likes: post.likes } })
-    PostsCollection.update(post.id, { $set: { dislikes: post.dislikes } })
-    PostsCollection.update(post.id, { $set: { likedList: post.likedList } })
-    PostsCollection.update(post.id, { $set: { doslikedList: post.dislikedList } })
+  const user = useTracker(() => Meteor.user()); //current user
+  let email = ""
+  if(typeof(user.emails)!='undefined'){ //makes sure email is not undefined
+    email = user.emails[0].address
   }
 
+  //updates like/dislike and like/dislike user lists in the db
+  const updateReactDB = () => {
+    console.log(post.likes+" - "+post.dislikes)
+    PostsCollection.update({_id : post._id}, { $set: { likes: post.likes } })
+    PostsCollection.update({_id : post._id}, { $set: { dislikes: post.dislikes } })
+    PostsCollection.update({_id : post._id}, { $set: { likedList: post.likedList } })
+    PostsCollection.update({_id : post._id}, { $set: { dislikedList: post.dislikedList } })
+  }
+
+  //updates like/dislike buttons images 
   const updateReactButtons = () => {
-    if(typeof post.likedList != 'undefined' && post.likedList.includes(post.poster)){
+    if(typeof post.likedList != 'undefined' && post.likedList.includes(email)){
       likeImagePath = "./like-filled.png"
     }
     else{
       likeImagePath = "./like.png"
     }
 
-    if(typeof post.dislikedList != 'undefined' && post.dislikedList.includes(post.poster)){
+    if(typeof post.dislikedList != 'undefined' && post.dislikedList.includes(email)){
       dislikeImagePath = "./dislike-filled.png"
     }
     else{
@@ -38,53 +48,59 @@ export default Post = ({ post }) => {
   
   updateReactButtons()
 
-  const like = () => {
-    if(typeof post.likedList == 'undefined' || !post.likedList.includes(post.poster)){
-      if(typeof post.dislikedList != 'undefined' && post.dislikedList.includes(post.poster)){
-        console.log(post.dislikedList)
-        userIdIndex = post.dislikedList.indexOf(post.poster)
-        post.dislikedList.splice(userIdIndex, 1)
-        console.log(post.dislikedList)
-        post.dislikes = post.dislikes-1;
-        setDisLikes(post.dislikes)
-      }
-      post.likedList.push(post.poster)
-      post.likes = post.likes+1;
-      setLikes(post.likes)
-      console.log(post.likes)
-      console.log(post.likedList)
-    }
-    else{
-      console.log("already liked!")
-      post.likedList.splice(post.likedList.indexOf(post.poster), 1)
-      post.likes = post.likes-1;
-      setLikes(post.likes)
-    }
-    updateReactButtons()
-    updateReactDB()
-  };
-
   const dislike = () => {
-    if(!post.dislikedList.includes(post.poster)){
-      if(post.likedList.includes(post.poster)){
+    //check if user already disliked 
+    if(typeof post.dislikedList == 'undefined' || !post.dislikedList.includes(email)){
+      console.log(post.dislikedList.includes(email))
+      console.log(post.dislikedList)
+      //check if user liked (if so must remove like)
+      if(typeof post.likedList != 'undefined' && post.likedList.includes(email)){
         console.log(post.likedList)
-        userIdIndex = post.likedList.indexOf(post.poster)
+        userIdIndex = post.likedList.indexOf(email)
         post.likedList.splice(userIdIndex, 1)
         console.log(post.likedList)
         post.likes = post.likes-1;
         setLikes(post.likes)
       }
-      post.dislikedList.push(post.poster)
+      //add user to dislike list and update dislike count
+      post.dislikedList.push(email)
       post.dislikes = post.dislikes+1;
       setDisLikes(post.dislikes)
-      console.log(post.dislikes)
-      console.log(post.dislikedList)
     }
     else{
-      console.log("already liked!")
-      post.dislikedList.splice(post.dislikedList.indexOf(post.poster), 1)
+      //if dislike button is clicked when already disliked (remove dislike)
+      post.dislikedList.splice(post.dislikedList.indexOf(email), 1)
       post.dislikes = post.dislikes-1;
       setDisLikes(post.dislikes)
+    }
+    updateReactButtons()
+    updateReactDB()
+  };
+
+  const like = () => {
+    //check if user already liked 
+    if(typeof post.likedList == 'undefined' || !post.likedList.includes(email)){
+      console.log(post.dislikedList.includes(email))
+      console.log(post.dislikedList)
+      //check if user disliked (if so must remove dislike)
+      if(typeof post.dislikedList != 'undefined' && post.dislikedList.includes(email)){
+        console.log(post.dislikedList)
+        userIdIndex = post.dislikedList.indexOf(email)
+        post.dislikedList.splice(userIdIndex, 1)
+        console.log(post.dislikedList)
+        post.dislikes = post.dislikes-1;
+        setDisLikes(post.dislikes)
+      }
+      //add user to like list and update dislike count
+      post.likedList.push(email)
+      post.likes = post.likes+1;
+      setLikes(post.likes)
+    }
+    else{
+      //if dislike button is clicked when already liked (remove like)
+      post.likedList.splice(post.likedList.indexOf(email), 1)
+      post.likes = post.likes-1;
+      setLikes(post.likes)
     }
     updateReactButtons()
     updateReactDB()
