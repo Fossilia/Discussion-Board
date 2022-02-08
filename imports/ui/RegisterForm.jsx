@@ -11,8 +11,8 @@ export default RegisterForm = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const history = useHistory();
 
-  //regex for : non-white-space char(s) -> @ non-white-space char(s) -> .com
-  const emailFormat = /\S+@\S+\.com+/;
+  //regex for : non-white-space char(s) -> @ non-white-space char(s) -> . -> non-white-space char(s)
+  const emailFormat = /\S+@\S+\.\S+/;
   //regex for : must include: digit, lower case, and upper case letter
   const passwordFormat = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/; 
 
@@ -106,9 +106,12 @@ export default RegisterForm = () => {
             name="password"
             required
             onChange={(e) => setPassword(e.target.value)}
-            />
-            <label><u>Password must have a number, lower case and upper case character</u></label>
+            />          
         </div>
+        <div className="passHelp">
+          <label><u>Password must have a number, lower case and upper case character</u></label>
+        </div>
+        <br/>
         <label>Confirm Password</label>
         <br/>
         <div className="input-group">

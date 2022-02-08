@@ -17,6 +17,11 @@ body {
   margin: 5px;
 }
 
+.passHelp {
+  display:block;
+  padding-bottom: 5px;
+}
+
 .clickableImage
 {
     cursor: pointer;
